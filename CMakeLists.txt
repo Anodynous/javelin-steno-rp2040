@@ -123,9 +123,11 @@ target_sources(${NAME} PUBLIC
   javelin/processor/gemini.cc
   javelin/processor/jeff_modifiers.cc
   javelin/processor/plover_hid.cc
+  javelin/processor/procat.cc
   javelin/processor/processor.cc
   javelin/processor/processor_list.cc
   javelin/processor/repeat.cc
+  javelin/processor/tx_bolt.cc
   javelin/random.cc
   javelin/script.cc
   javelin/script_byte_code.cc

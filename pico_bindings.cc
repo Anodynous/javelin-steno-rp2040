@@ -32,8 +32,10 @@
 #include "javelin/processor/jeff_modifiers.h"
 #include "javelin/processor/passthrough.h"
 #include "javelin/processor/plover_hid.h"
+#include "javelin/processor/procat.h"
 #include "javelin/processor/processor_list.h"
 #include "javelin/processor/repeat.h"
+#include "javelin/processor/tx_bolt.h"
 #include "javelin/script_byte_code.h"
 #include "javelin/split/pair_console.h"
 #include "javelin/static_allocate.h"
@@ -74,6 +76,8 @@ static JavelinStaticAllocate<StenoUserDictionary> userDictionaryContainer;
 #endif
 
 static StenoGemini gemini;
+static StenoTxBolt txBolt;
+static StenoProcat procat;
 static StenoPloverHid ploverHid;
 static StenoProcessorElement *processors;
 
@@ -143,7 +147,7 @@ static void PrintInfo_Binding(void *context, const char *commandLine) {
     Console::Printf("%02x", serialId[i]);
   }
   Console::Printf("\n");
-
+  Console::Printf("  Firmware: " __DATE__ " \n");
   Console::Printf("  ");
   HidKeyboardReportBuilder::instance.PrintInfo();
 
@@ -220,6 +224,10 @@ void SetStenoMode(void *context, const char *commandLine) {
 #endif
       if (Str::Eq(stenoMode, "gemini")) {
     passthroughContainer->SetNext(&gemini);
+  } else if (Str::Eq(stenoMode, "tx_bolt")) {
+    passthroughContainer->SetNext(&txBolt);
+  } else if (Str::Eq(stenoMode, "procat")) {
+    passthroughContainer->SetNext(&procat);
   } else if (Str::Eq(stenoMode, "plover_hid")) {
     passthroughContainer->SetNext(&ploverHid);
   } else {
@@ -340,6 +348,10 @@ static void GetStenoMode() {
 #endif
       if (processor == &gemini) {
     Console::Printf("gemini\n\n");
+  } else if (processor == &txBolt) {
+    Console::Printf("tx_bolt\n\n");
+  } else if (processor == &procat) {
+    Console::Printf("procat\n\n");
   } else if (processor == &ploverHid) {
     Console::Printf("plover_hid\n\n");
   } else {
@@ -565,15 +577,17 @@ void InitJavelinMaster() {
   Console &console = Console::instance;
 
 #if JAVELIN_USE_EMBEDDED_STENO
-  console.RegisterCommand("set_steno_mode",
-                          "Sets the current steno mode [\"embedded\", "
-                          "\"gemini\", \"plover_hid\"]",
-                          SetStenoMode, nullptr);
+  console.RegisterCommand(
+      "set_steno_mode",
+      "Sets the current steno mode [\"embedded\", "
+      "\"gemini\", \"tx_bolt\", \"procat\", \"plover_hid\"]",
+      SetStenoMode, nullptr);
 #else
-  console.RegisterCommand("set_steno_mode",
-                          "Sets the current steno mode ["
-                          "\"gemini\", \"plover_hid\"]",
-                          SetStenoMode, nullptr);
+  console.RegisterCommand(
+      "set_steno_mode",
+      "Sets the current steno mode ["
+      "\"gemini\", \"tx_bolt\", \"procat\", \"plover_hid\"]",
+      SetStenoMode, nullptr);
 #endif
   console.RegisterCommand("set_keyboard_protocol",
                           "Sets the current keyboard protocol "
@@ -608,6 +622,7 @@ void InitJavelinMaster() {
   console.RegisterCommand("print_orthography",
                           "Prints all orthography rules in JSON format",
                           StenoOrthography_Print_Binding, nullptr);
+  ButtonManager::GetInstance().AddConsoleCommands(console);
   console.RegisterCommand("enable_paper_tape", "Enables paper tape output",
                           StenoEngine::EnablePaperTape_Binding, engine);
   console.RegisterCommand("disable_paper_tape", "Disables paper tape output",
