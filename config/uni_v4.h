@@ -20,6 +20,8 @@ struct StenoDictionaryCollection;
 #define JAVELIN_USB_MILLIAMPS 500
 #define BOOTSEL_BUTTON_INDEX 28
 
+#define JAVELIN_BUTTON_MATRIX 1
+
 constexpr uint8_t COLUMN_PINS[] = {24, 23, 21, 20, 19, 6, 5, 4, 3, 2, 1};
 constexpr uint32_t COLUMN_PIN_MASK = 0x1b8007e;
 constexpr uint8_t ROW_PINS[] = {25, 18, 17};
@@ -38,7 +40,7 @@ const StenoOrthography *const ORTHOGRAPHY_ADDRESS =
 const uint8_t *const STENO_WORD_LIST_ADDRESS = (const uint8_t *)0x10040000;
 const StenoConfigBlock *const STENO_CONFIG_BLOCK_ADDRESS =
     (const StenoConfigBlock *)0x103ff000;
-const uint8_t *const BUTTON_MANAGER_BYTE_CODE = (const uint8_t *)0x103ff100;
+const uint8_t *const SCRIPT_BYTE_CODE = (const uint8_t *)0x103ff100;
 const StenoDictionaryCollection *const STENO_MAP_DICTIONARY_COLLECTION_ADDRESS =
     (const StenoDictionaryCollection *)0x10400000;
 const uint8_t *const STENO_USER_DICTIONARY_ADDRESS =

@@ -38,6 +38,8 @@ struct StenoConfigBlock;
 #define JAVELIN_OLED_I2C_ADDRESS 0x3c
 #define JAVELIN_OLED_ROTATION 180
 
+#define JAVELIN_BUTTON_MATRIX 1
+
 constexpr uint8_t LEFT_COLUMN_PINS[] = {8, 27, 26, 22, 20, 23, 21};
 constexpr uint32_t LEFT_COLUMN_PIN_MASK = 0x0cf00100;
 constexpr uint8_t LEFT_ROW_PINS[] = {4, 5, 6, 7};
@@ -104,7 +106,7 @@ constexpr uint8_t RGB_MAP[62] = {
 
 const StenoConfigBlock *const STENO_CONFIG_BLOCK_ADDRESS =
     (const StenoConfigBlock *)0x10040000;
-const uint8_t *const BUTTON_MANAGER_BYTE_CODE = (const uint8_t *)0x10040100;
+const uint8_t *const SCRIPT_BYTE_CODE = (const uint8_t *)0x10040100;
 
 const size_t MAXIMUM_BUTTON_SCRIPT_SIZE = 0x1f00;
 const size_t BUTTON_COUNT = 50;

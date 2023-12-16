@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 
 #pragma once
-#include "javelin/button_manager.h"
+#include "javelin/script_manager.h"
 
 //---------------------------------------------------------------------------
 
@@ -10,6 +10,8 @@ public:
   static void Initialize();
 
   static ButtonState Read();
+
+  static void ReadTouchCounters(uint32_t *counters);
 };
 
 //---------------------------------------------------------------------------
