@@ -236,6 +236,7 @@ void SetStenoMode(void *context, const char *commandLine) {
   }
 
   Console::SendOk();
+  ScriptManager::ExecuteScript(ScriptId::STENO_MODE_UPDATE);
 }
 
 void SetKeyboardProtocol(void *context, const char *commandLine) {
@@ -332,10 +333,6 @@ static void GetStrokeCount() {
 
 static void GetUnicodeMode() {
   Console::Printf("%s\n\n", StenoKeyCodeEmitter::GetUnicodeModeName());
-}
-
-void StenoDictionary::InvalidateMaximumOutlineLengthCache() {
-  engineContainer->UpdateMaximumStrokeLengthCache();
 }
 #endif
 
