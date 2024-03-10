@@ -12,12 +12,9 @@ struct StenoDictionaryCollection;
 
 //---------------------------------------------------------------------------
 
-#define JAVELIN_RGB_COUNT 32
-#define JAVELIN_RGB_PIN 11
-
 #define JAVELIN_USE_EMBEDDED_STENO 1
 #define JAVELIN_USE_USER_DICTIONARY 1
-#define JAVELIN_USB_MILLIAMPS 500
+#define JAVELIN_USB_MILLIAMPS 100
 #define BOOTSEL_BUTTON_INDEX 28
 
 #define JAVELIN_BUTTON_MATRIX 1
@@ -34,6 +31,9 @@ constexpr int8_t KEY_MAP[3][16] = {
   { -1, -1, 22, 23, 24, /**/ 25, 26, 27, -1, -1, -1 },
 };
 // clang-format on
+
+#define JAVELIN_SCRIPT_CONFIGURATION                                           \
+  R"({"name":"Uni v4","layout":[{"x":0,"y":0},{"x":1,"y":0},{"x":2,"y":0},{"x":3,"y":0},{"x":4,"y":0},{"x":7,"y":0},{"x":8,"y":0},{"x":9,"y":0},{"x":10,"y":0},{"x":11,"y":0},{"x":12,"y":0},{"x":0,"y":1},{"x":1,"y":1},{"x":2,"y":1},{"x":3,"y":1},{"x":4,"y":1},{"x":7,"y":1},{"x":8,"y":1},{"x":9,"y":1},{"x":10,"y":1},{"x":11,"y":1},{"x":12,"y":1},{"x":2,"y":3},{"x":3,"y":3},{"x":4,"y":3},{"x":7,"y":3},{"x":8,"y":3},{"x":9,"y":3},{"x":12.5,"y":3.5,"s":0.5}]})"
 
 const StenoOrthography *const ORTHOGRAPHY_ADDRESS =
     (const StenoOrthography *)0x1003e000;
